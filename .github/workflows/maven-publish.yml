@@ -131,6 +131,6 @@ jobs:
     # ----------------------------------------------------
     - name: Push Image to DockerHub
       run: |
-        docker push vilasvarghese/test:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/test:latest
 
 
