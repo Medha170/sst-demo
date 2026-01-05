@@ -34,3 +34,25 @@ jobs:
     #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
     #   env:
     #     GITHUB_TOKEN: ${{ github.token }}
+
+    # ----------------------------------------------------
+    # 3. Linting (Checkstyle via Maven)
+    # ----------------------------------------------------
+    - name: Run Maven Checkstyle (Linting)
+      run: mvn checkstyle:check
+      continue-on-error: true
+
+    # ----------------------------------------------------
+    # 4. SAST – CodeQL
+    # ----------------------------------------------------
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: java
+
+    - name: CodeQL Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
